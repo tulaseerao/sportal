@@ -1,0 +1,1 @@
+var student = angular.module('student', ['ngDragDrop']);

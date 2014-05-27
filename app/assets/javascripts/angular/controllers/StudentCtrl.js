@@ -1,18 +1,29 @@
 student.controller('StudentCtrl', [
   '$scope', '$location', '$http', function($scope, $location, $http) {
     $scope.students = [];
+    $scope.active  = '';
+    $scope.department  = 'English';
     $http.get('/stud_data').success(function(data) {
       $scope.students = data;
     });
     $scope.list1 = {title: 'AngularJS - Drag Me'};
     $scope.list2 = {};
 
+    $http.get('/dept_data').success(function(data) {
+      $scope.depts = data;
+    });
+
+    $scope.active_class = function(event) {
+      $(event.target).parent().parent().find('li.active').removeClass('active');
+      $(event.target).parent().addClass('active');
+      $scope.department = $(event.target).text();
+    }
 
   $scope.list1 = [];
   $scope.list2 = [];
   $scope.list3 = [];
   $scope.list4 = [];
-  
+
   $scope.list5 = [
     { 'title': 'English', 'drag': true },
     { 'title': 'Science', 'drag': true },

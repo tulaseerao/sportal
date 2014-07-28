@@ -2,7 +2,6 @@ student.controller('StudentCtrl', [
   '$scope', '$location', '$http', function($scope, $location, $http) {
     $scope.students = [];
     $scope.active  = '';
-    $scope.department  = 'English';
     $http.get('/stud_data').success(function(data) {
       $scope.students = data;
     });
@@ -11,6 +10,8 @@ student.controller('StudentCtrl', [
 
     $http.get('/dept_data').success(function(data) {
       $scope.depts = data;
+      $scope.department  = data[0]['name'];
+    
     });
 
     $scope.active_class = function(event) {
@@ -23,15 +24,24 @@ student.controller('StudentCtrl', [
   $scope.list2 = [];
   $scope.list3 = [];
   $scope.list4 = [];
-
-  $scope.list5 = [
-    { 'title': 'English', 'drag': true },
-    { 'title': 'Science', 'drag': true },
-    { 'title': 'Math', 'drag': true },
-    { 'title': 'Physics', 'drag': true },
-    { 'title': 'History', 'drag': true },
-  ];
-
+  //$http.get('/rec_course_data').success(function(data) {
+    $scope.list5 = 
+    [
+      { 'title': 'Englishes', 'drag': true },
+      { 'title': 'Science', 'drag': true },
+      { 'title': 'Math', 'drag': true },
+      { 'title': 'Physics', 'drag': true },
+      { 'title': 'History', 'drag': true },
+    ];
+    
+//     i = 0;
+//     {
+//     while(i < data.length){
+//       { 'title': i['name'], 'drag': true}
+// i++;
+//     }
+//   };
+  //});
   // Limit items to be dropped in list1
   $scope.optionsList1 = {
     accept: function(dragEl) {
@@ -43,14 +53,5 @@ student.controller('StudentCtrl', [
     }
   };
 
-  //  $scope.list1 = [{'title': 'Lolcat Shirt'},{'title': 'Cheezeburger Shirt'},{'title': 'Buckit Shirt'}];
-  // $scope.list2 = [{'title': 'Zebra Striped'},{'title': 'Black Leather'},{'title': 'Alligator Leather'}];
-  // $scope.list3 = [{'title': 'iPhone'},{'title': 'iPod'},{'title': 'iPad'}];
-
-  // $scope.list4 = [];
-
-  // $scope.hideMe = function() {
-  //   return $scope.list4.length > 0;
-  // }
   }
 ]);

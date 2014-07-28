@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140527030032) do
+ActiveRecord::Schema.define(version: 20140728015233) do
 
   create_table "courses", force: true do |t|
     t.string   "name"
@@ -19,9 +19,11 @@ ActiveRecord::Schema.define(version: 20140527030032) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "department_id"
+    t.string   "code"
+    t.integer  "grade_id"
   end
 
-  create_table "courses_takens", force: true do |t|
+  create_table "current_courses", force: true do |t|
     t.integer  "course_id"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -33,6 +35,7 @@ ActiveRecord::Schema.define(version: 20140527030032) do
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "code"
   end
 
   create_table "grades", force: true do |t|
@@ -49,9 +52,24 @@ ActiveRecord::Schema.define(version: 20140527030032) do
     t.datetime "updated_at"
   end
 
+  create_table "taken_courses", force: true do |t|
+    t.integer  "course_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_types", force: true do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_types", ["name"], name: "index_user_types_on_name", unique: true
+
   create_table "users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",   null: false
+    t.string   "encrypted_password",     default: "",   null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -62,6 +80,16 @@ ActiveRecord::Schema.define(version: 20140527030032) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "full_name"
+    t.string   "preferred_name"
+    t.string   "export_id"
+    t.integer  "current_grade_id"
+    t.integer  "next_grade_id"
+    t.integer  "user_type_id"
+    t.boolean  "active",                 default: true
+    t.boolean  "can_update",             default: true
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

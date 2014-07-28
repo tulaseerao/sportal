@@ -14,8 +14,9 @@
       <div>
         <h4>You have already taken:</h4>
           <ul>
-            <li>{{department}} I </li>
-            <li>{{department}} II Honors</li>
+          	<% taken_courses.each do |course| %>
+            	<li><%= course.name %></li>
+            <% end %>
           </ul>
       </div>
 
@@ -26,14 +27,21 @@
     <div class='contentWrapper ng-cloak'>
      		<div class="row-fluid">
             <div class="container" style="text-align: center;">
-              <!-- <div class="btn btn-droppable" ng-repeat="item in list5" data-drop="true" ng-model='list5' data-jqyoui-options="{accept:'.btn-draggable:not([ng-model=list5])'}"  jqyoui-droppable="{index: {{$index}}}">
-                <div class="btn btn-info btn-draggable" data-drag="{{item.drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="list5" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}" ng-hide="!item.title">{{item.title}}</div>
-              </div> -->
-
               <ul class="thumbnails">
+              	<li class="span3" style='margin-left:10px;'>
+              	  <div class="btn btn-droppable" ng-repeat="item in list5" data-drop="true" ng-model='list5' data-jqyoui-options="{accept:'.btn-draggable:not([ng-model=list5])'}"  jqyoui-droppable="{index: {{$index}}}">
+              	  <div class="btn btn-info btn-draggable" data-drag="{{item.drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="list5" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}" ng-hide="!item.title">
+              	    {{item.title}}
+              	  </div>
+              	</li>
                   <li class="span3" style='margin-left:10px;'>
-                   <div class="btn btn-droppable" ng-repeat="item in list5" data-drop="true" ng-model='list5' data-jqyoui-options="{accept:'.btn-draggable:not([ng-model=list5])'}"  jqyoui-droppable="{index: {{$index}}}">
-                <div class="btn btn-info btn-draggable" data-drag="{{item.drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="list5" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}" ng-hide="!item.title">{{item.title}}</div>
+                <% recommended_courses.each_with_index do |course,index| %>
+                    <div class="btn btn-droppable ng-scope ng-pristine ng-valid ui-droppable" data-drop="true" ng-model="<%= recommended_courses %>" data-jqyoui-options="{accept:'.btn-draggable:not([ng-model=<%= recommended_courses %>])'}"  jqyoui-droppable="{index: <%= index %>}" aria-disabled="false"  draggable='true'>
+                    <div class="btn btn-info btn-draggable ng-pristine ng-valid ng-binding ui-draggable" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="<%= recommended_courses %>" jqyoui-draggable="{index: <%= index %>,placeholder:true,animate:true}" ng-hide="!'<%= course.name %>'" aria-disabled="false" draggable='true' >
+                      <%= course.name %>
+                    </div>
+                    </div>
+                <% end %>
                   </li>
                    <li class="span3" style='margin-left:10px;'>Drop To
                     <div class="thumbnail" data-drop="true" ng-model='list1' data-jqyoui-options="optionsList1" jqyoui-droppable="{multiple:true}">
@@ -43,17 +51,6 @@
                     </div>
                   </li>
                   </ul>
-
-               <!--    <p> Drop your courses here</p>
-                <ul class="thumbnails">
-                  <li class="span3" style='margin-left:10px;'>
-                    <div class="thumbnail" data-drop="true" ng-model='list1' data-jqyoui-options="optionsList1" jqyoui-droppable="{multiple:true}">
-                      <div class="caption">
-                        <div class="btn btn-info btn-draggable" ng-repeat="item in list1" ng-show="item.title" data-drag="{{item.drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="list1" jqyoui-draggable="{index: {{$index}},animate:true}">{{item.title}}</div>
-                      </div>
-                    </div>
-                  </li>
-                  </ul> -->
             </div>
           </div>
 

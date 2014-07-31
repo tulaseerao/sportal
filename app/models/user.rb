@@ -13,6 +13,10 @@ class User < ActiveRecord::Base
   has_many :recommended_courses
   has_many :r_courses, through: :recommended_courses, :source => :course
 
+  # This is where we create the courses that are being recommended
+  has_many :current_courses
+  has_many :c_courses, through: :current_courses, :source => :course
+	
   # This is the school grade the user will be in
   belongs_to :current_grade, :class_name => "Grade"
   belongs_to :next_grade, :class_name => "Grade"

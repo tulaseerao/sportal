@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+#Rails.cache.clear
+
+Dir[Rails.root.join('db', 'seeds', '*seeds.rb').to_s].sort.reverse.each do |file|
+puts file.inspect
+  load(file)
+end

@@ -2,7 +2,6 @@ student.controller('StudentCtrl', [
   '$scope', '$location', '$http', function($scope, $location, $http) {
     $scope.students = [];
     $scope.active  = '';
-    $scope.department  = 'English';
     $http.get('/stud_data').success(function(data) {
       $scope.students = data;
     });
@@ -11,6 +10,8 @@ student.controller('StudentCtrl', [
 
     $http.get('/dept_data').success(function(data) {
       $scope.depts = data;
+      $scope.department  = data[0]['name'];
+    
     });
 
     $scope.active_class = function(event) {
@@ -19,23 +20,39 @@ student.controller('StudentCtrl', [
       $scope.department = $(event.target).text();
     }
 
-  $scope.list1 = [];
+  $http.get('/curr_course_data').success(function(data) {
+    $scope.list1 = data;
+  });
   $scope.list2 = [];
   $scope.list3 = [];
   $scope.list4 = [];
+  $http.get('/rec_course_data').success(function(data) {
+    $scope.list5 = data;
+  });
 
-  $scope.list5 = [
-    { 'title': 'English', 'drag': true },
-    { 'title': 'Science', 'drag': true },
-    { 'title': 'Math', 'drag': true },
-    { 'title': 'Physics', 'drag': true },
-    { 'title': 'History', 'drag': true },
-  ];
+  $scope.myCallback = function(event, ui){
+
+    var s = angular.element('.selected_courses .selected_course'); //$('.selected_courses .selected_course');
+    for(var i = 0; i < s.length; i++) { 
+      var obj = s[i]
+      var val = obj.value
+      console.log(obj); 
+      console.log(val); 
+      $http(
+        {
+          url: '/store_course',
+          method: 'GET',
+          params: {id: val}
+        }
+      );
+    }
+    console.log('Dropped into something');
+  };
 
   // Limit items to be dropped in list1
   $scope.optionsList1 = {
     accept: function(dragEl) {
-      if ($scope.list1.length >= 4) {
+      if ($scope.list1.length > $scope.list5.length) {
         return false;
       } else {
         return true;
@@ -43,14 +60,5 @@ student.controller('StudentCtrl', [
     }
   };
 
-  //  $scope.list1 = [{'title': 'Lolcat Shirt'},{'title': 'Cheezeburger Shirt'},{'title': 'Buckit Shirt'}];
-  // $scope.list2 = [{'title': 'Zebra Striped'},{'title': 'Black Leather'},{'title': 'Alligator Leather'}];
-  // $scope.list3 = [{'title': 'iPhone'},{'title': 'iPod'},{'title': 'iPad'}];
-
-  // $scope.list4 = [];
-
-  // $scope.hideMe = function() {
-  //   return $scope.list4.length > 0;
-  // }
   }
 ]);

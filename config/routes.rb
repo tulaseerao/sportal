@@ -14,7 +14,10 @@ Sportal::Application.routes.draw do
 
   get 'stud_data', to: 'welcome#stud_data'
   get 'dept_data', to: 'welcome#dept_data'
-
+  get 'rec_course_data', to: 'welcome#rec_course_data'
+  get 'curr_course_data', to: 'welcome#curr_course_data'
+  get 'store_course', to: 'welcome#store_course'
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

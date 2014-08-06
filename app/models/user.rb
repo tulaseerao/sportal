@@ -25,6 +25,14 @@ class User < ActiveRecord::Base
   # Validations ----------------------------------------------------------------
   validates_uniqueness_of :email
   
+  def name
+  	self.full_name.blank? ? "#{self.first_name} #{self.last_name}" : self.full_name
+  end
+  
+  def possessive_name
+  	self.preferred_name.blank? ? "#{self.name}'s" : "#{self.preferred_name}'s"
+  end
+  
   def is_admin?
   	self.user_type == UserType.admin rescue false
   end
@@ -43,5 +51,9 @@ class User < ActiveRecord::Base
   
   def self.teachers
   	where :user_type_id => UserType.teacher.id
+  end
+
+  def self.admins
+    where :user_type_id => UserType.admin.id
   end
 end

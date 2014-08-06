@@ -11,9 +11,8 @@ class Admin::CoursesController < Admin::BaseAdminController
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.paginate(:page => params[:page], :order => :name, :include => [:department, :grade])
   end
-
+  
   # GET /courses/1
   # GET /courses/1.json
   def show
@@ -30,10 +29,10 @@ class Admin::CoursesController < Admin::BaseAdminController
   # POST /courses
   # POST /courses.json
   def create
-    #@course = Course.new(course_params)
+    course = Course.new(course_params)
 
     respond_to do |format|
-      if Course.create(course_params)
+      if course.save
         format.html { redirect_to admin_courses_path, notice: 'Course was successfully created.' }
         format.json { render action: 'show', status: :created, location: course }
       else
@@ -75,6 +74,6 @@ class Admin::CoursesController < Admin::BaseAdminController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:name, :description, :code, :grade_id, :department_id)
+      params.require(:course).permit(:name, :description, :code, :grade_id, :department_id, :errors)
     end
 end

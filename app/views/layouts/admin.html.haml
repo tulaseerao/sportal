@@ -48,6 +48,7 @@
               %li= link_to "Departments", "/admin/departments"
               %li= link_to "Courses", "/admin/courses"
               %li= link_to "Students", "/admin/students"
+              %li= link_to "Teachers", "/admin/teachers"
           / /.nav-collapse
     .container-fluid
       .row-fluid
@@ -58,6 +59,8 @@
               %li= "#{departments.size} Departments"
               %li= "#{courses.size} Courses"
               %li= "#{students.size} Students"
+              %li= "#{teachers.size} Teachers"
+              %li= "#{admins.size} Admin Users"
           / /.well
         / /span
         .span9

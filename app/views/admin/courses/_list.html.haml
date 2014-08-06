@@ -1,0 +1,19 @@
+- clazz = clazz || 'courses'
+%table{:id => clazz}
+  %thead
+    %tr
+      %th Name
+      %th Department
+      %th Grade
+      %th Actions
+  %tbody
+    - courses.each do |course|
+      %tr
+        %td= link_to course.name, admin_course_path(course)
+        - dept = course.department.code rescue ''
+        %td= link_to dept, admin_department_path(course.department) rescue ''
+        %td= course.grade.name rescue ''
+        %td
+          = link_to 'Edit', edit_admin_course_path(course)
+          |
+          = link_to 'Destroy', admin_course_path(course), method: :delete, data: { confirm: 'Are you sure?' }

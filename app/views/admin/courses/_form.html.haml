@@ -6,25 +6,20 @@
     %ul
       - course.errors.full_messages.each do |msg|
         %li= msg
-.field
-  = f.label :name
-  %br/
-  = f.text_field :name
-.field
-  = f.label :code
-  %br/
-  = f.text_field :code
-.field
-  = f.label :description
-  %br/
-  = f.text_area :description
-.field
-  = f.label :Department
-  %br/
-  = f.select :department_id, departments.collect {|x| [x.name, x.id]},{}, :multiple => false
-.field
-  = f.label :Grade
-  %br/
-  = f.select :grade_id, grades.collect {|x| [x.name, x.id]},{}, :multiple => false
-.actions
-  = f.submit
+%table
+  %tr
+    %th= f.label :name
+    %td= f.text_field :name
+    %th= f.label :code
+    %td= f.text_field :code
+  %tr
+    %th= f.label :Grade
+    %td= f.select :grade_id, ['',''] + grades.collect {|x| [x.name, x.id]},{}, :multiple => false
+    %th= f.label :Department
+    %td= f.select :department_id, ['',''] + departments.collect {|x| [x.name, x.id]},{}, :multiple => false
+  %tr
+    %th= f.label :description
+    %td= f.text_area :description
+    %th{:colspan => 2}
+      .actions
+      = f.submit 'Save Course'

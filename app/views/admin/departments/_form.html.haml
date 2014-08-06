@@ -5,17 +5,15 @@
   %ul
     - department.errors.full_messages.each do |msg|
       %li= msg
-.field
-= f.label :name
-%br/
-= f.text_field :name
-.field
-= f.label :code
-%br/
-= f.text_field :code
-.field
-= f.label :description
-%br/
-= f.text_field :description
-.actions
-= f.submit 'Save Department'
+%table
+  %tr
+    %th= f.label :name
+    %td= f.text_field :name
+    %th= f.label :code
+    %td= f.text_field :code
+  %tr
+    %th= f.label :description
+    %td= f.text_area :description
+    %th{:colspan => 2}
+      .actions
+      = f.submit 'Save Department'

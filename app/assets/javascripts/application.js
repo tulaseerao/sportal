@@ -13,9 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui.js
+//= require dataTables/jquery.dataTables
 //= require twitter/bootstrap
 //= require angular
 //= require angular-route
 //= require main
 //= require_tree ./angular
 //= require_tree .
+

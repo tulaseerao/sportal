@@ -1,13 +1,20 @@
 %p#notice= notice
-%p
-  %strong Name:
+%h2 
+  Details for
   = department.name
-%p
-  %strong Code:
-  = department.code
-%p
-  %strong Description:
-  = department.description
+%table
+  %tr
+    %th Name
+    %td= department.name
+    %th Code
+    %td= department.code
+  %tr
+    %th Description
+    %td{:colspan => 3}= department.description
 = link_to 'Edit', edit_admin_department_path(department)
 |
 \#{link_to 'Back', admin_departments_path}
+%h3
+  = department.name
+  Courses:
+  = render :partial => 'admin/courses/list', :locals => {:courses => department.courses}

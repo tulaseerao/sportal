@@ -1,0 +1,5 @@
+%h2 Students
+= link_to 'New Student', new_admin_student_path
+%br/
+%br/
+= render :partial => 'list', :locals => {:students => students}

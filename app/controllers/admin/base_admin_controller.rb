@@ -36,6 +36,13 @@ class Admin::BaseAdminController < ApplicationController
     # @return [User]
     expose(:students){ User.students }
     
+    # All students
+    # @return [User]
+    expose(:teachers){ User.teachers }
+    
+    # All students
+    # @return [User]
+    expose(:admins){ User.admins }
     
 #    def 
 #    

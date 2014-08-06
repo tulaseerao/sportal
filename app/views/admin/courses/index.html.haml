@@ -1,21 +1,6 @@
-%h1 Listing courses
-= will_paginate @courses
-%table
-  %thead
-    %tr
-      %th Name
-      %th Description
-      %th
-      %th
-      %th
-  %tbody
-    - @courses.each do |course|
-      %tr
-        %td= course.name
-        %td= course.description
-        %td= link_to 'Show', admin_course_path(course)
-        %td= link_to 'Edit', edit_admin_course_path(course)
-        %td= link_to 'Destroy', admin_course_path(course), method: :delete, data: { confirm: 'Are you sure?' }
-= will_paginate @courses
-%br/
+%h2 Courses
 = link_to 'New Course', new_admin_course_path
+%br/
+%br/
+= render :partial => 'list', :locals => {:courses => courses}
+

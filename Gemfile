@@ -25,6 +25,8 @@ gem 'haml'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails' 
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 

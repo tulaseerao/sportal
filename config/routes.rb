@@ -30,6 +30,8 @@ Sportal::Application.routes.draw do
         resources :courses
       
      resources :students
+     resources :teachers
+     resources :admins
   end
   
   # Example of regular route:

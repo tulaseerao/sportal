@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
-  before_action :authenticate_user!, :except => :store_course
+  before_action :authenticate_user!
   
   # @!group Exposures
   	  
@@ -50,6 +50,7 @@ class WelcomeController < ApplicationController
     expose(:user_from_email) { User.find_by_email(params[:email]) }
     
   def index
+     user.is_admin? ? (redirect_to :admin) : ''
   end
 
   def stud_data

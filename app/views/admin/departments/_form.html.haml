@@ -1,0 +1,21 @@
+- if department && department.errors.any?
+  %h2
+    = pluralize(department.errors.count, "error")
+    prohibited this department from being saved:
+  %ul
+    - department.errors.full_messages.each do |msg|
+      %li= msg
+.field
+= f.label :name
+%br/
+= f.text_field :name
+.field
+= f.label :code
+%br/
+= f.text_field :code
+.field
+= f.label :description
+%br/
+= f.text_field :description
+.actions
+= f.submit 'Save Department'

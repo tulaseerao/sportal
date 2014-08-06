@@ -1,10 +1,17 @@
-class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+class Admin::CoursesController < Admin::BaseAdminController
+  before_action :set_course, only: [:update, :destroy]
+  require 'will_paginate/array'
 
+  # !group Exposures
+      
+  # The current course.
+  # return [User]
+  expose(:course)
+    
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.all
+    @courses = Course.paginate(:page => params[:page], :order => :name, :include => [:department, :grade])
   end
 
   # GET /courses/1
@@ -14,7 +21,6 @@ class CoursesController < ApplicationController
 
   # GET /courses/new
   def new
-    @course = Course.new
   end
 
   # GET /courses/1/edit
@@ -24,15 +30,15 @@ class CoursesController < ApplicationController
   # POST /courses
   # POST /courses.json
   def create
-    @course = Course.new(course_params)
+    #@course = Course.new(course_params)
 
     respond_to do |format|
-      if @course.save
-        format.html { redirect_to @course, notice: 'Course was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @course }
+      if Course.create(course_params)
+        format.html { redirect_to admin_courses_path, notice: 'Course was successfully created.' }
+        format.json { render action: 'show', status: :created, location: course }
       else
         format.html { render action: 'new' }
-        format.json { render json: @course.errors, status: :unprocessable_entity }
+        format.json { render json: course.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -42,11 +48,11 @@ class CoursesController < ApplicationController
   def update
     respond_to do |format|
       if @course.update(course_params)
-        format.html { redirect_to @course, notice: 'Course was successfully updated.' }
+        format.html { redirect_to admin_courses_path, notice: 'Course was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @course.errors, status: :unprocessable_entity }
+        format.json { render json: course.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -54,9 +60,9 @@ class CoursesController < ApplicationController
   # DELETE /courses/1
   # DELETE /courses/1.json
   def destroy
-    @course.destroy
+    course.destroy
     respond_to do |format|
-      format.html { redirect_to courses_url }
+      format.html { redirect_to admin_courses_path }
       format.json { head :no_content }
     end
   end
@@ -69,6 +75,6 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:name, :description, :department_id)
+      params.require(:course).permit(:name, :description, :code, :grade_id, :department_id)
     end
 end

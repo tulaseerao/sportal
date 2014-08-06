@@ -1,10 +1,15 @@
-class DepartmentsController < ApplicationController
-  before_action :set_department, only: [:show, :edit, :update, :destroy]
-
+class Admin::DepartmentsController < Admin::BaseAdminController
+  before_action :set_department, only: [:update]
+    
+  # !group Exposures
+  	  
+    # The current department.
+    # return [User]
+    expose(:department)
+    
   # GET /departments
   # GET /departments.json
   def index
-    @departments = Department.all
   end
 
   # GET /departments/1
@@ -14,7 +19,7 @@ class DepartmentsController < ApplicationController
 
   # GET /departments/new
   def new
-    @department = Department.new
+   department = Department.new
   end
 
   # GET /departments/1/edit
@@ -24,15 +29,14 @@ class DepartmentsController < ApplicationController
   # POST /departments
   # POST /departments.json
   def create
-    @department = Department.new(department_params)
-
+    dept = Department.new(department_params)
     respond_to do |format|
-      if @department.save
-        format.html { redirect_to @department, notice: 'Department was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @department }
+      if dept.save
+        format.html { redirect_to admin_departments_path, notice: 'Department was successfully created.' }
+        format.json { render action: 'show', status: :created, location: dept }
       else
         format.html { render action: 'new' }
-        format.json { render json: @department.errors, status: :unprocessable_entity }
+        format.json { render json: department.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -42,8 +46,9 @@ class DepartmentsController < ApplicationController
   def update
     respond_to do |format|
       if @department.update(department_params)
-        format.html { redirect_to @department, notice: 'Department was successfully updated.' }
-        format.json { head :no_content }
+        format.html { redirect_to admin_department_path(@department), notice: 'Department was successfully updated.' }
+        format.json { render action: 'show', status: :updated, location: @department }
+        #format.json { head :no_content }
       else
         format.html { render action: 'edit' }
         format.json { render json: @department.errors, status: :unprocessable_entity }
@@ -54,9 +59,9 @@ class DepartmentsController < ApplicationController
   # DELETE /departments/1
   # DELETE /departments/1.json
   def destroy
-    @department.destroy
+    department.destroy
     respond_to do |format|
-      format.html { redirect_to departments_url }
+      format.html { redirect_to admin_departments_path }
       format.json { head :no_content }
     end
   end
@@ -69,6 +74,6 @@ class DepartmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def department_params
-      params.require(:department).permit(:name, :description)
+      params.require(:department).permit(:name, :description, :code)
     end
 end

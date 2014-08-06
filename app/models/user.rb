@@ -22,15 +22,26 @@ class User < ActiveRecord::Base
   belongs_to :next_grade, :class_name => "Grade"
   belongs_to :user_type
   
+  # Validations ----------------------------------------------------------------
+  validates_uniqueness_of :email
+  
   def is_admin?
-  	self.user_type.name == 'Admin' rescue false
+  	self.user_type == UserType.admin rescue false
   end
   
   def is_student?
-  	self.user_type.name == 'Student' rescue false
+  	self.user_type == UserType.student rescue false
   end
   
   def is_teacher?
-  	self.user_type.name == 'Teacher' rescue false
+  	self.user_type == UserType.teacher rescue false
+  end
+  
+  def self.students
+  	where :user_type_id => UserType.student.id
+  end
+  
+  def self.teachers
+  	where :user_type_id => UserType.teacher.id
   end
 end

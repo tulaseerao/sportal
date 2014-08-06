@@ -53,6 +53,8 @@ gem 'uglifier', '>= 1.3.0'
 # Use unicorn as the app server
 # gem 'unicorn'
 
+gem 'will_paginate'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

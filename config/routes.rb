@@ -1,10 +1,4 @@
 Sportal::Application.routes.draw do
-  resources :grades
-
-  resources :departments
-
-  resources :courses
-
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -17,6 +11,26 @@ Sportal::Application.routes.draw do
   get 'rec_course_data', to: 'welcome#rec_course_data'
   get 'curr_course_data', to: 'welcome#curr_course_data'
   get 'store_course', to: 'welcome#store_course'
+  
+  
+  # -------------------------------------------------------------------
+    # Admin Routes
+    # -------------------------------------------------------------------
+     
+  
+    get '/admin', to: "admin/accounts#index", as: "admin"
+    get "/admin/accounts/:action", controller: "admin/accounts"
+    
+    namespace :admin do
+      resources :accounts
+      resources :grades
+      
+        resources :departments
+      
+        resources :courses
+      
+     resources :students
+  end
   
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

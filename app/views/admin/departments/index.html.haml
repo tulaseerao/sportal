@@ -1,0 +1,22 @@
+%h1 Listing departments
+%table
+  %thead
+    %tr
+      %th Name
+      %th Code
+      %th Description
+      %th
+      %th
+      %th
+  = departments.first.inspect
+  %tbody
+    - departments.each do |dept|
+      %tr
+        %td= dept.name
+        %td= dept.code
+        %td= dept.description
+        %td= link_to 'Show', admin_department_path(dept)
+        %td= link_to 'Edit', edit_admin_department_path(dept)
+        %td= link_to 'Destroy', admin_department_path(dept), method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Department', new_admin_department_path

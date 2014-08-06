@@ -1,5 +1,5 @@
-class GradesController < ApplicationController
-  before_action :set_grade, only: [:show, :edit, :update, :destroy]
+class Admin::GradesController < Admin::BaseAdminController
+  before_action :grade_params, only: [:create, :update]
 
   # GET /grades
   # GET /grades.json

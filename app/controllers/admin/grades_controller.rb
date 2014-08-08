@@ -1,6 +1,6 @@
 class Admin::GradesController < Admin::BaseAdminController
-  before_action :grade_params, only: [:create, :update]
-
+  before_action :set_grade, only: [:edit, :show, :update]
+  
   # GET /grades
   # GET /grades.json
   def index
@@ -28,7 +28,7 @@ class Admin::GradesController < Admin::BaseAdminController
 
     respond_to do |format|
       if @grade.save
-        format.html { redirect_to @grade, notice: 'Grade was successfully created.' }
+        format.html { redirect_to admin_grade_path(@grade), notice: 'Grade was successfully created.' }
         format.json { render action: 'show', status: :created, location: @grade }
       else
         format.html { render action: 'new' }
@@ -42,7 +42,7 @@ class Admin::GradesController < Admin::BaseAdminController
   def update
     respond_to do |format|
       if @grade.update(grade_params)
-        format.html { redirect_to @grade, notice: 'Grade was successfully updated.' }
+        format.html { redirect_to admin_grade_path(@grade), notice: 'Grade was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

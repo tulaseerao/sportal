@@ -28,15 +28,15 @@ class Admin::StudentsController < Admin::BaseAdminController
   # POST /students
   # POST /students.json
   def create
-    student = User.students.new(student_params)
-    student.password = 'Password01'
+    @student = User.students.new(student_params)
+    @student.password = 'Password01'
     respond_to do |format|
-      if student.save
+      if @student.save
         format.html { redirect_to admin_students_path, notice: 'student was successfully created.' }
-        format.json { render action: 'show', status: :created, location: student }
+        format.json { render action: 'show', status: :created, location: @student }
       else
         format.html { render action: 'new' }
-        format.json { render json: student.errors, status: :unprocessable_entity }
+        format.json { render json: @student.errors, status: :unprocessable_entity }
       end
     end
   end

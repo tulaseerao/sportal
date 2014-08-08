@@ -19,7 +19,7 @@ class Admin::DepartmentsController < Admin::BaseAdminController
 
   # GET /departments/new
   def new
-   department = Department.new
+   @department = Department.new
   end
 
   # GET /departments/1/edit
@@ -29,14 +29,14 @@ class Admin::DepartmentsController < Admin::BaseAdminController
   # POST /departments
   # POST /departments.json
   def create
-    dept = Department.new(department_params)
+    @department = Department.new(department_params)
     respond_to do |format|
-      if dept.save
+      if @department.save
         format.html { redirect_to admin_departments_path, notice: 'Department was successfully created.' }
-        format.json { render action: 'show', status: :created, location: dept }
+        format.json { render action: 'show', status: :created, location: @department }
       else
         format.html { render action: 'new' }
-        format.json { render json: department.errors, status: :unprocessable_entity }
+        format.json { render json: @department.errors, status: :unprocessable_entity }
       end
     end
   end

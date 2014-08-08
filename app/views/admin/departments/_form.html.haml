@@ -1,10 +1,11 @@
-- if department && department.errors.any?
-  %h2
-    = pluralize(department.errors.count, "error")
-    prohibited this department from being saved:
-  %ul
-    - department.errors.full_messages.each do |msg|
-      %li= msg
+- if (department = (department || @department)) && department.errors.any?
+  #error_explanation
+    %h4
+      = pluralize(department.errors.count, "error")
+      prohibited this department from being saved:
+    %ul
+      - department.errors.full_messages.each do |msg|
+        %li= msg
 %table
   %tr
     %th= f.label :name

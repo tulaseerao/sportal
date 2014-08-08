@@ -1,6 +1,6 @@
-- if course.errors.any?
+- if (course = (course || @course)) && course.errors.any?
   #error_explanation
-    %h2
+    %h4
       = pluralize(course.errors.count, "error")
       prohibited this course from being saved:
     %ul

@@ -30,22 +30,44 @@ student.controller('StudentCtrl', [
     $scope.list5 = data;
   });
 
-  $scope.myCallback = function(event, ui){
+  // $http(
+  //   {
+  //     method: 'GET'
+  //     url: '/dept_grade_courses_data'
+  //     params: {dept: $scope.department}
+  //   }
+  // ).success(function(data) {
+  //   $scope.list6 = data;
+  // });
 
-    var s = angular.element('.selected_courses .selected_course'); //$('.selected_courses .selected_course');
-    for(var i = 0; i < s.length; i++) { 
-      var obj = s[i]
-      var val = obj.value
-      console.log(obj); 
-      console.log(val); 
-      $http(
+  $scope.myCallback = function(event){
+    console.log(event);
+    console.log($(event));
+    console.log($(event.parent));
+    console.log($(event.data));
+    console.log($(event.val));
+    $http(
         {
           url: '/store_course',
           method: 'GET',
-          params: {id: val}
+          params: {id: 'id'}
         }
       );
-    }
+    // var s = angular.element('.selected_courses .selected_course'); //$('.selected_courses .selected_course');
+    // for(var i = 0; i < s.length; i++) { 
+    //   var obj = s[i]
+    //   var val = obj.value
+    //   console.log(obj); 
+    //   console.log(val); 
+    //   // console.log($(event.target));
+    //   $http(
+    //     {
+    //       url: '/store_course',
+    //       method: 'GET',
+    //       params: {id: val}
+    //     }
+    //   );
+    // }
     console.log('Dropped into something');
   };
 

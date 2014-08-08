@@ -6,12 +6,14 @@ Sportal::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
 
+  get 'login', to: 'users#sign_in'
+  get 'logout', to: 'users#sign_out'
   get 'stud_data', to: 'welcome#stud_data'
   get 'dept_data', to: 'welcome#dept_data'
   get 'rec_course_data', to: 'welcome#rec_course_data'
   get 'curr_course_data', to: 'welcome#curr_course_data'
   get 'store_course', to: 'welcome#store_course'
-  
+  get 'dept_grade_courses_data', to: 'welcome#dept_grade_courses_data'
   
   # -------------------------------------------------------------------
     # Admin Routes
@@ -21,19 +23,20 @@ Sportal::Application.routes.draw do
     get '/admin', to: "admin/accounts#index", as: "admin"
     get "/admin/accounts/:action", controller: "admin/accounts"
     
-    namespace :admin do
-      resources :accounts
-      resources :grades
+ namespace :admin do
+    resources :accounts
+    resources :grades
       
-        resources :departments
+    resources :departments
       
-        resources :courses
+    resources :courses
       
      resources :students
      resources :teachers
      resources :admins
   end
   
+  resources :departments
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

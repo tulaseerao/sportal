@@ -6,19 +6,16 @@
   %tr
     %th Export ID
     %td= teacher.export_id
-  %tr
     %th First Name
     %td= teacher.first_name
   %tr
     %th Last Name
     %td= teacher.last_name
-  %tr
     %th Preferred Name
     %td= teacher.preferred_name
   %tr
     %th Email
-    %td= student.email
-  %tr
+    %td= teacher.email
     %th Active
     %td= teacher.active
 = link_to 'Edit', edit_admin_teacher_path(teacher)

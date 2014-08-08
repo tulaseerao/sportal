@@ -43,6 +43,9 @@ class WelcomeController < ApplicationController
     # @return [Relation<Course>]
     expose(:current_courses) { user.c_courses }
     
+    # The current_courses that is being created.
+    # @return [Relation<Course>]
+    expose(:grade_courses) { next_grade.courses.order(:name).uniq }
         
     # @!attribute user_from_email
     # The user who has the email.
@@ -67,6 +70,12 @@ class WelcomeController < ApplicationController
   
   def curr_course_data
   	render json: current_courses.map{|cc| {'id' => cc.id, 'title' => cc.name, 'drag' => true}}.flatten.to_json
+  end
+  
+  def dept_grade_courses_data
+    puts params.inspect
+    dept = Department.find_by_name(params[:dept])
+    (grade_courses & dept.courses).map{|cc| {'id' => cc.id, 'title' => cc.name}}.to_json
   end
   
   def store_course

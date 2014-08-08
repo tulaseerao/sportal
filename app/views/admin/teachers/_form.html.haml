@@ -1,10 +1,11 @@
-- if teacher && teacher.errors.any?
-  %h2
-    = pluralize(teacher.errors.count, "error")
-    prohibited this teacher from being saved:
-  %ul
-    - teacher.errors.full_messages.each do |msg|
-      %li= msg
+- if (teacher = (teacher || @teacher)) && teacher.errors.any?
+  #error_explanation
+    %h4
+      = pluralize(teacher.errors.count, "error")
+      prohibited this teacher from being saved:
+    %ul
+      - teacher.errors.full_messages.each do |msg|
+        %li= msg
 %table
   %tr
     %th= f.label "Export ID"

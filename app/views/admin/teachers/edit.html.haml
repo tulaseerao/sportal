@@ -1,4 +1,4 @@
-%h1 Edit teacher
+%h2 Edit teacher
 = form_for(teacher, url: admin_teacher_path(teacher)) do |f|
 	= render :partial => 'form', :locals => {:f => f}
 = link_to 'Show', admin_teacher_path(teacher) 

@@ -29,6 +29,11 @@ table a:hover {
 	color: #bd5a35;
 	text-decoration:underline;
 }*/
+#error_explanation {
+	font-family:Arial, Helvetica, sans-serif;
+	color:red;
+	font-size:13px;	
+}
 table {
 	font-family:Arial, Helvetica, sans-serif;
 	color:#666;

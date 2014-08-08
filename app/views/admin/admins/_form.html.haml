@@ -1,10 +1,10 @@
-- if (student = (student || @student)) && student.errors.any?
+- if (admin = (admin || @admin)) && admin.errors.any?
   #error_explanation
     %h4
-      = pluralize(student.errors.count, "error")
-      prohibited this student from being saved:
+      = pluralize(admin.errors.count, "error")
+      prohibited this admin from being saved:
     %ul
-      - student.errors.full_messages.each do |msg|
+      - admin.errors.full_messages.each do |msg|
         %li= msg
 %table
   %tr
@@ -32,4 +32,4 @@
     %td= f.check_box :can_update
     %td{:colspan => 2}
       .actions
-      = f.submit 'Save student'
+      = f.submit 'Save admin'

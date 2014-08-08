@@ -49,6 +49,13 @@
               %li= link_to "Courses", "/admin/courses"
               %li= link_to "Students", "/admin/students"
               %li= link_to "Teachers", "/admin/teachers"
+              %li= link_to "Admin Users", "/admin/admins"
+            %div{:style => 'text-align:right;'}
+              = link_to current_user.email, root_path rescue ''
+              | 
+              = link_to "logout", "/users/sign_out"  unless current_user.blank?
+              | 
+              = link_to "login", "/users/sign_in"  if current_user.blank?
           / /.nav-collapse
     .container-fluid
       .row-fluid

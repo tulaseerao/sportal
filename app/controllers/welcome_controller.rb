@@ -73,6 +73,7 @@ class WelcomeController < ApplicationController
   end
   
   def dept_grade_courses_data
+    puts ">>>>>>>>>>> This is the dept_grade_courses_data and params = #{params.inspect}"
     puts params.inspect
     dept = Department.find_by_name(params[:dept])
     (grade_courses & dept.courses).map{|cc| {'id' => cc.id, 'title' => cc.name}}.to_json

@@ -13,7 +13,7 @@ student.controller('StudentCtrl', [
       $scope.department  = data[0]['name'];
     
     });
-
+    
     $scope.active_class = function(event) {
       $(event.target).parent().parent().find('li.active').removeClass('active');
       $(event.target).parent().addClass('active');
@@ -30,16 +30,20 @@ student.controller('StudentCtrl', [
     $scope.list5 = data;
   });
 
-  // $http(
-  //   {
-  //     method: 'GET'
-  //     url: '/dept_grade_courses_data'
-  //     params: {dept: $scope.department}
-  //   }
-  // ).success(function(data) {
-  //   $scope.list6 = data;
-  // });
-
+  $http.get('/dept_grade_courses_data?dept=' + $scope.department).success(function(data) {
+      $scope.dept_grade_courses = data;
+    });
+  
+//  $http(
+//    {
+//      method: 'GET'
+//      url: '/dept_grade_courses_data'
+//      params: {dept: $scope.department}
+//    }
+//  ).success(function(data) {
+//    $scope.dept_grade_courses = data;
+//  });
+   
   $scope.myCallback = function(event){
     console.log(event);
     console.log($(event));

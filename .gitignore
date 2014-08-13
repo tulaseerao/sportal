@@ -16,3 +16,13 @@
 /tmp
 sportal.esproj/Project.espressostorage
 sportal.esproj/user.esonafomuso.espressostorage
+app/controllers/departments_controller.rb
+app/views/departments/_form.html.haml
+app/views/departments/create.js.erb
+app/views/departments/edit.html.haml
+app/views/departments/index.html.haml
+app/views/departments/index.json.jbuilder
+app/views/departments/new.html.haml
+app/views/departments/show.html.haml
+app/views/departments/show.json.jbuilder
+app/views/welcome/get_courses.js.erb

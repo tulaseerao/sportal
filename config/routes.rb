@@ -14,6 +14,7 @@ Sportal::Application.routes.draw do
   get 'curr_course_data', to: 'welcome#curr_course_data'
   get 'store_course', to: 'welcome#store_course'
   get 'dept_grade_courses_data', to: 'welcome#dept_grade_courses_data'
+  get 'get_courses', to: 'welcome#get_courses'
   
   # -------------------------------------------------------------------
     # Admin Routes

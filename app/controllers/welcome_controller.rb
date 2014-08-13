@@ -19,33 +19,41 @@ class WelcomeController < ApplicationController
     # @return [Grade]
     expose(:next_grade){ user.next_grade }
     
-    # The departments that is being created.
+    # All departments.
     # @return [Department]
     expose(:departments){ Department.all.order(:name).uniq }
     
-    # The courses that is being created.
+    # All courses.
     # @return [Course]
     expose(:courses)
     
-    # The course that is being created.
+    # The course that is being worked on.
     # @return [Course]
     expose(:course)
     
-    # The taken_courses that is being created.
+    # The taken_courses for current user.
     # @return [Relation<Course>]
-    expose(:taken_courses) { user.t_courses }
+    expose(:taken_courses) { user.t_courses.group_by{|c| c.department.name rescue 'Others'}.sort } #params[:dept_id] ? user.t_courses.where(:department_id => params[:dept_id]) : user.t_courses.where(:department_id => departments.first.id) }
     
-    # The recommended_courses that is being created.
+    # The recommended_courses for current user.
     # @return [Relation<Course>]
-    expose(:recommended_courses) { user.r_courses - current_courses }
+    expose(:recommended_courses) { (user.r_courses - current_courses_arr).group_by{|c| c.department.name rescue 'Others'} }
+    
+    # The appealed_courses of current user.
+    # @return [Relation<Course>]
+    expose(:appealed_courses) { (user.a_courses - current_courses_arr).group_by{|c| c.department.name rescue 'Others'} }
+    
+    # The current_courses selected by current user.
+    # @return [Relation<Course>]
+    expose(:current_courses_arr) { user.c_courses }
+    
+    # The current_courses selected by current user.
+    # @return [Relation<Course>]
+    expose(:current_courses) { current_courses_arr.group_by{|c| c.department.name rescue 'Others'} }
     
     # The current_courses that is being created.
     # @return [Relation<Course>]
-    expose(:current_courses) { user.c_courses }
-    
-    # The current_courses that is being created.
-    # @return [Relation<Course>]
-    expose(:grade_courses) { next_grade.courses.order(:name).uniq }
+    expose(:grade_courses) { next_grade.courses.order(:name).uniq.group_by{|c| c.department.name rescue 'Others'} }
         
     # @!attribute user_from_email
     # The user who has the email.
@@ -61,15 +69,16 @@ class WelcomeController < ApplicationController
   end
 
   def dept_data
+    taken_courses
     render json: departments.select([:id,:name,:description]).to_json
   end
   
   def rec_course_data
-  	render json: recommended_courses.map{|rc| {'id' => rc.id, 'title' => rc.name, 'drag' => true}}.flatten.to_json
+  	render json: recommended_courses.to_json #.map{|rc| {'id' => rc.id, 'title' => rc.name, 'drag' => true}}.flatten.to_json
   end
   
   def curr_course_data
-  	render json: current_courses.map{|cc| {'id' => cc.id, 'title' => cc.name, 'drag' => true}}.flatten.to_json
+  	render json: current_courses.to_json #.map{|cc| {'id' => cc.id, 'title' => cc.name, 'drag' => true}}.flatten.to_json
   end
   
   def dept_grade_courses_data
@@ -79,12 +88,23 @@ class WelcomeController < ApplicationController
     (grade_courses & dept.courses).map{|cc| {'id' => cc.id, 'title' => cc.name}}.to_json
   end
   
+#  def get_courses
+#  	dept_id = params[:dept_id].to_i || departments.first.id
+#  	puts ">>>>>>>> inside get_courses and params = #{params.inspect} and dept_id = #{dept_id}"
+#  	taken_courses = user.t_courses.where(:department_id => dept_id)
+#  	puts "taken_courses = #{taken_courses.inspect}"
+#  	respond_to do |format|
+#  	  format.js
+#  	end
+#  	
+#  end
+  
   def store_course
   	puts params.inspect
-    course
-    puts course.inspect
-    # c = courses.find_by_id(params[:id])
-    user.c_courses << course unless user.c_courses.include?(course)
+    student_courses = courses.find_all_by_id(params[:id].split(','))
+    student_courses.each do |course|
+    	user.c_courses << course unless user.c_courses.include?(course)
+    end
     puts current_courses.inspect
     puts user.c_courses.inspect
   	render json: current_courses{|sc| {'id' => sc.id, 'title' => sc.name, 'drag' => true}}.flatten.to_json

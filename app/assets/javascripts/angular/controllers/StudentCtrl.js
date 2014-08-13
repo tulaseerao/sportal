@@ -18,6 +18,9 @@ student.controller('StudentCtrl', [
       $(event.target).parent().parent().find('li.active').removeClass('active');
       $(event.target).parent().addClass('active');
       $scope.department = $(event.target).text();
+      toggleCourses();
+      var dept_id = angular.element('.ng-scope .active .ng-binding').attr('dept_id');
+      //$http.get('/dept_data?dept_id=' + dept_id);
     }
 
   $http.get('/curr_course_data').success(function(data) {
@@ -30,9 +33,9 @@ student.controller('StudentCtrl', [
     $scope.list5 = data;
   });
 
-  $http.get('/dept_grade_courses_data?dept=' + $scope.department).success(function(data) {
-      $scope.dept_grade_courses = data;
-    });
+  // $http.get('/dept_grade_courses_data?dept=' + $scope.department).success(function(data) {
+  //     $scope.dept_grade_courses = data;
+  //   });
   
 //  $http(
 //    {
@@ -44,12 +47,13 @@ student.controller('StudentCtrl', [
 //    $scope.dept_grade_courses = data;
 //  });
    
-  $scope.myCallback = function(event){
-    console.log(event);
-    console.log($(event));
-    console.log($(event.parent));
-    console.log($(event.data));
-    console.log($(event.val));
+  $scope.myCallback = function(){
+    console.log(this);
+    console.log($(this));
+    console.log($this);
+    console.log($(this.data));
+    console.log($('.selected_courses .selected_course'));
+    console.log($scope.department);
     $http(
         {
           url: '/store_course',

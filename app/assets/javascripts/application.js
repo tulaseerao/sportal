@@ -22,9 +22,13 @@
 //= require_tree .
 
 var dropZoneOne = document.querySelector('#drop-target-one');
+var dropZoneTwo = document.querySelector('#drop-target-two');
 
 // Get the draggable elements.
 var dragElements = document.querySelectorAll('#drag-elements li');
+
+// Get the dropable elements.
+var dropElements = document.querySelectorAll('#drop-elements li');
 
 // Track the element that is being dragged.
 var elementDragged = null;
@@ -76,7 +80,21 @@ dropZoneOne.addEventListener('drop', function(e) {
   document.querySelector('#drop-elements').appendChild(elementDragged);
 
   // Remove the element from the list.
-  document.querySelector('#drag-elements').removeChild(elementDragged);
+  //document.querySelector('#drag-elements').removeChild(elementDragged);
+  console.log(this);
+  console.log(elementDragged);
+  console.log(elementDragged.childNodes);
+  console.log(elementDragged.child);
+  console.log($(this).attr('course_id'));
+  console.log($(this.child).attr('course_id'));
+  console.log($(this.childNodes).attr('course_id'));
+  //console.log($('#drop-target-one #drop-elements li .caption').attr('course_id'));
+  var myVals = [];
+  $('#drop-target-one #drop-elements li .caption').map(function(){
+    myVals.push($(this).attr('course_id'));
+  });
 
+  $.ajax({
+        url: '/store_course?id=' + myVals });
   return false;
 });

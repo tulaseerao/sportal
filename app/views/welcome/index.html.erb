@@ -3,13 +3,17 @@
     <div> <h3><u>{{department}} Department</u></h3></div>
     <div>
       <h4>You have already taken:</h4>
-        <ul>
-        	<% taken_courses.each do |course| %>
-          	<li><%= course.name %></li>
+        <ul class='taken_courses'>
+          <% taken_courses.each do |dept, tcourses| %>
+        	<div class='<%= dept %> courses' >
+        		<% tcourses.each do |course| %>
+          			<li><%= course.name %></li>
+          		<% end %>
+          	</div>
           <% end %>
         </ul>
     </div>
-
+	<br/>
     <div>
       <h4>Your recommended {{department}} course(s)</h4>
       <p>Drag and drop the selected course to the right sidebar</p>
@@ -20,41 +24,68 @@
       	<tr><td>Recommended Course(s)</td><td> Drag and drop selection here </td></tr>
         <tr>
           <td style='width: 15%;'>
-            <ul id="drag-elements">
-              <% recommended_courses.each do |course| %>
-              	<li draggable="true" class="btn btn-info rec" style='width: 80%;'><div class="caption"><%= course.name %></div></li>
-              <% end %>
-            </ul>
+          	<div id="drag-target-one" name="rec[courses]" class='rec_courses' >
+	            <ul id="drag-elements">
+	              <% recommended_courses.each do |dept, rcourses| %>
+	              	<% rcourses.each do |course| %>
+	              		<li draggable="true" class="btn btn-info rec <%= dept %> courses" style='width: 80%;'>
+		              		<div class="caption" course_id='<%= course.id %>'>
+		              			<%= course.name %>
+		              		</div>
+	              		</li>
+	              	<% end %>
+	              <% end %>
+	            </ul>
+	         </div>
           </td>
           <td id="drop-target-one" style='width: 15%;'>
             <div id="drop-target-one" name="chosen[courses]" class='chosen_courses' >
             	<ul id="drop-elements">
-                	<% current_courses.each do |course| %>
-                		<p><li draggable="true" class="btn btn-info rec" style='width: 80%;'><%= course.name %></li></p>
-                	<% end %>
+                	<% current_courses.each do |dept, rcourses| %>
+                		<% rcourses.each do |course| %>
+	                		<li draggable="true" class="btn btn-info rec <%= dept %> courses" style='width: 80%;'>
+		                		<div class="caption" course_id='<%= course.id %>'>
+		                			<%= course.name %>
+		                		</div>
+	                		</li>
+	                	<% end %>
+                 	<% end %>
             	</ul>
             </div>
           </td>
         </tr>
       </table>
     </div>
+    <br/>
     <div>
       <h4><%= grade.description rescue '' %> {{department}} courses offered:</h4>
-       <ul ng-model='department' ng-repeat='c in dept_grade_courses'>
-           <li draggable="true" class="btn btn-info">
-           	{{c.name}}
-           </li>
+       <ul id="drag-elements" class"drag-elements-two">
+         <% grade_courses.each do |dept, gcourses| %>
+         	<% gcourses.each do |course| %>
+         		<li draggable="true" class="appealed rec <%= dept %> courses" style='width: 20%;'>
+	         		<div class="caption" course_id='<%= course.id %>'>
+	         			<%= course.name %>
+	         		</div>
+         		</li>
+         	<% end %>
+         <% end %>
        </ul>
     </div>
     <div>
-      <% unless @appeal_courses.blank? %>
       <h4>I intend to appeal for:</h4>
-        <ul>
-          <% appeal_courses.each do |ac| %>
-          <li>{{department}} I </li>
-          <% end %>
-        </ul>
-        <% end %>
+        <div id="drop-target-two" name="appealed[courses]" class='appealed_courses' >
+        	<ul id="drop-elements" class"drop-elements-two">
+            	<% current_courses.each do |dept, gcourses| %>
+            		<% gcourses.each do |course| %>
+                		<li draggable="true" class="appealed rec <%= dept %> courses" style='width: 20%;'>
+	                		<div class="caption" course_id='<%= course.id %>'>
+	                			<%= course.name %>
+	                		</div>
+                		</li>
+                	<% end %>
+            	<% end %>
+        	</ul>
+        </div>
     </div>
     <div>
       <p> Note to Scheduler:</p>

@@ -8,7 +8,9 @@
       %a.brand{href: "#"} Sportal
       .container-fluid.nav-collapse
         %ul.nav
-          %li= link_to "Course Summary", "/path1"
+          %li= link_to "Departmental Course Request", "/"
+          %li= link_to "Electives", "/electives"
+          %li= link_to "Course Registration Summary", "/summary"
         %div{:style => 'text-align:right;'}
           = link_to current_user.email, root_path rescue ''
           | 

@@ -39,9 +39,9 @@ class WelcomeController < ApplicationController
     # @return [Relation<Course>]
     expose(:recommended_courses) { (user.r_courses - current_courses_arr).group_by{|c| c.department.name rescue 'Others'} }
     
-    # The appealed_courses of current user.
+    # The appeal_courses of current user.
     # @return [Relation<Course>]
-    expose(:appealed_courses) { (user.a_courses - current_courses_arr).group_by{|c| c.department.name rescue 'Others'} }
+    expose(:appeal_courses) { (user.a_courses - current_courses_arr).group_by{|c| c.department.name rescue 'Others'} }
     
     # The current_courses selected by current user.
     # @return [Relation<Course>]
@@ -62,6 +62,13 @@ class WelcomeController < ApplicationController
     
   def index
      user.is_admin? ? (redirect_to :admin) : ''
+  end
+  
+  def summary
+  end
+  
+  def electives
+    render :text => "This is the electives page. Under construction."
   end
 
   def stud_data

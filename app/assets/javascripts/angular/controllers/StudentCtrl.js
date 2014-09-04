@@ -15,8 +15,10 @@ student.controller('StudentCtrl', [
     });
     
     $scope.active_class = function(event) {
-      $(event.target).parent().parent().find('li.active').removeClass('active');
-      $(event.target).parent().addClass('active');
+      var current_dept = $(event.target).parent()
+      //location.reload();
+      current_dept.parent().find('li.active').removeClass('active');
+      current_dept.addClass('active');
       $scope.department = $(event.target).text();
       toggleCourses();
       var dept_id = angular.element('.ng-scope .active .ng-binding').attr('dept_id');

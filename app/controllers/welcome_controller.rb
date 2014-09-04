@@ -105,7 +105,6 @@ class WelcomeController < ApplicationController
 #  	end
 #  	
 #  end
-  
   def store_course
   	puts params.inspect
     student_courses = courses.find_all_by_id(params[:id].split(','))
@@ -115,5 +114,16 @@ class WelcomeController < ApplicationController
     puts current_courses.inspect
     puts user.c_courses.inspect
   	render json: current_courses{|sc| {'id' => sc.id, 'title' => sc.name, 'drag' => true}}.flatten.to_json
+  end
+  
+  def remove_selection
+  	puts params.inspect
+    course = courses.find_by_id(params[:id])
+    user.c_courses.delete(course) if user.c_courses.include?(course)
+    puts recommended_courses.inspect
+    puts user.r_courses.inspect
+  	puts current_courses.inspect
+  	puts user.c_courses.inspect
+  	render json: recommended_courses{|sc| {'id' => sc.id, 'title' => sc.name, 'drag' => true}}.flatten.to_json
   end
 end

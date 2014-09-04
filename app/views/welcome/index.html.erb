@@ -3,72 +3,89 @@
     <div> <h3><u>{{department}} Department</u></h3></div>
     <div>
       <h4>You have already taken:</h4>
-        <ul>
-        	<% taken_courses.each do |course| %>
-          	<li><%= course.name %></li>
+        <ul class='taken_courses'>
+          <% taken_courses.each do |dept, tcourses| %>
+        	<div class='<%= dept %> courses' >
+        		<% tcourses.each do |course| %>
+          			<li><%= course.name %></li>
+          		<% end %>
+          	</div>
           <% end %>
         </ul>
     </div>
-
+	<br/>
     <div>
-      <h4>Your recommended course(s)</h4>
+      <h4>Your recommended {{department}} course(s)</h4>
       <p>Drag and drop the selected course to the right sidebar</p>
     </div>
     <div class='contentWrapper ng-cloak'>
-   		<div class="row-fluid">
-        <div class="container" style="text-align: center;">
-          <ul class="thumbnails">
-          	<li class="span3" style='margin-left:10px;'>
-          	  <div class="btn btn-droppable" ng-repeat="item in list5" data-drop="true" ng-model='list5' data-jqyoui-options="{accept:'.btn-draggable:not([ng-model=list5])'}"  jqyoui-droppable="{index: {{$index}}}">
-            	  <div class="btn btn-info btn-draggable" data-drag="{{item.drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="list5" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}" course_id="{{item.id}}" ng-hide="!item.title">
-            	    {{item.title}}
-            	  </div>
-              </div>
-          	</li>
-            <li class="span3" style='margin-left:10px;'>
-              Drop To
-              <div class="thumbnail selected_courses" data-drop="true" ng-model='list1' data-jqyoui-options="optionsList1" jqyoui-droppable="{multiple:true, onDrop: this.myCallback({{item.id}})}">
-                <div class="caption">
-                  <div class="btn btn-info btn-draggable" ng-repeat="item in list1" ng-show="item.title" data-drag="{{item.drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="list1" course_id="{{item.id}}" jqyoui-draggable="{index: {{$index}},animate:true}">
-                    <%= hidden_field_tag 'user[selected_course]', '{{item.id}}', class:'selected_course' %>
-                    <span id='selected_course'> {{item.title}} </span>
-                  </div>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-
-      <!--div class='content'>
-        <ul id="drag-elements">
-          <li draggable="true">Element One</li>
-          <li draggable="true">Element Two</li>
-          <li draggable="true">Element Three</li>
-          <li draggable="true">Element Four</li>
-          <li draggable="true">Element Five</li>
-        </ul>
-        
-        <div id="drop-target-one">
-          Drop Here!
-        </div>
-      </div>
-    </div-->
-
+   	  <div class='content'>
+      <table>
+      	<tr><td>Recommended Course(s)</td><td> Drag and drop selection here </td></tr>
+        <tr>
+          <td style='width: 15%;'>
+          	<div id="drag-target-one" name="rec[courses]" class='rec_courses' >
+	            <ul id="drag-elements">
+	              <% recommended_courses.each do |dept, rcourses| %>
+	              	<% rcourses.each do |course| %>
+	              		<li draggable="true" class="btn btn-info rec <%= dept %> courses" style='width: 80%;'>
+		              		<div class="caption" course_id='<%= course.id %>'>
+		              			<%= course.name %>
+		              		</div>
+	              		</li>
+	              	<% end %>
+	              <% end %>
+	            </ul>
+	         </div>
+          </td>
+          <td id="drop-target-one" style='width: 15%;'>
+            <div id="drop-target-one" name="chosen[courses]" class='chosen_courses' >
+            	<ul id="drop-elements">
+                	<% current_courses.each do |dept, rcourses| %>
+                		<% rcourses.each do |course| %>
+	                		<li draggable="true" class="btn btn-info rec <%= dept %> courses" style='width: 80%;'>
+		                		<div class="caption" course_id='<%= course.id %>'>
+		                			<%= course.name %>
+		                		</div>
+	                		</li>
+	                	<% end %>
+                 	<% end %>
+            	</ul>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <br/>
     <div>
-      <h4>11th Grade courses offered:</h4>
-       <ul>
-        <li>{{department}} I </li>
-        <li>{{department}} II Honors</li>
-      </ul>
+      <h4><%= grade.description rescue '' %> {{department}} courses offered:</h4>
+       <ul id="drag-elements-two" class"drag-elements-two">
+         <% grade_courses.each do |dept, gcourses| %>
+         	<% gcourses.each do |course| %>
+         		<li draggable="true" class="appealed rec <%= dept %> courses" style='width: 20%;'>
+	         		<div class="caption" course_id='<%= course.id %>'>
+	         			<%= course.name %>
+	         		</div>
+         		</li>
+         	<% end %>
+         <% end %>
+       </ul>
     </div>
     <div>
       <h4>I intend to appeal for:</h4>
-        <ul>
-          <li>{{department}} I </li>
-          <li>{{department}} II Honors</li>
-        </ul>
+        <div id="drop-target-two" name="appealed[courses]" class='appealed_courses' >
+        	<ul id="drop-elements-two" class"drop-elements-two">
+            	<% appeal_courses.each do |dept, gcourses| %>
+            		<% gcourses.each do |course| %>
+                		<li draggable="true" class="appealed rec <%= dept %> courses" style='width: 20%;'>
+	                		<div class="caption" course_id='<%= course.id %>'>
+	                			<%= course.name %>
+	                		</div>
+                		</li>
+                	<% end %>
+            	<% end %>
+        	</ul>
+        </div>
     </div>
     <div>
       <p> Note to Scheduler:</p>

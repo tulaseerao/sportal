@@ -55,6 +55,7 @@ class AlreadyTaken < ConfigScript
 		  	    c = Course.create(
 		  	      :name => line[:"Full Name (#{i}) - Online CR Academic History classes- US"],
 		  	      :code => line[:"Course ID (#{i}) - Online CR Academic History classes- US"],
+		  	      :grade_id => Grade.find_or_create_by_name(line[:"Student Current Grade"]).id,
 		  	      :description => line[:"Full Name (#{i}) - Online CR Academic History classes- US"]
 		  	      ) unless line[:"Course ID (#{i}) - Online CR Academic History classes- US"].blank? && line[:"Full Name (#{i}) - Online CR Academic History classes- US"].blank?
 		  	end

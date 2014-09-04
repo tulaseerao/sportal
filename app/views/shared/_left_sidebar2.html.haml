@@ -4,4 +4,4 @@
 			%li{:class => "nav-header"}
 				Summary
 			%li{:ng-class=>"{'active': dept.name==='English'}"}
-				= link_to dept.name, "#"
+				= link_to dept.name, "#", :dept_id => dept.id

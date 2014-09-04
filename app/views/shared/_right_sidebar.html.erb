@@ -3,7 +3,7 @@
       <ul class="nav nav-list">
         <li class="nav-header">Summary</li>
         <% departments.each_with_index do |dept,index| %>
-        	<li ng-class="{'active': <%= dept.name === departments.first.name %>}" ng-click="active_class($event)" class='ng-scope' ><%= link_to dept.name, "#", :class => 'ng-binding' %></li>
+        	<li ng-class="{'active': <%= dept.name === departments.first.name %>}" ng-click="active_class($event)" class='ng-scope' ><%= link_to dept.name, "#", :class => 'ng-binding', :dept_id => dept.id %></li>
         <% end %>
       </ul>
     </div><!--/.well -->

@@ -1,6 +1,9 @@
 class UserType < ActiveRecord::Base
   has_many :users
   
+  validates :name, presence: true
+  validates_uniqueness_of :name
+  
   def self.admin
   	find_by_name('Admin')
   end

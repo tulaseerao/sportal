@@ -1,0 +1,17 @@
+%table{:id => 'students'}
+  %thead
+    %tr
+      %th Export ID
+      %th First Name
+      %th Last Name
+      %th Actions
+  %tbody
+    - students.each do |student|
+      %tr
+        %td= link_to student.export_id, admin_student_path(student)
+        %td= student.first_name
+        %td= student.last_name
+        %td
+          = link_to 'Edit', edit_admin_student_path(student)
+          |
+          = link_to 'Destroy', admin_student_path(student), method: :delete, data: { confirm: 'Are you sure?' }

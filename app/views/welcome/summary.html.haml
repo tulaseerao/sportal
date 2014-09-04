@@ -1,0 +1,38 @@
+%h2
+  Course Registration Summary 2013 - 2014
+%hr
+%br
+%h3
+  = "#{user.last_name}, #{user.first_name}"
+  Grade:
+  = user.next_grade.name
+  = user.export_id
+%br
+%br
+
+%table{:id => 'courses'}
+  %tr
+    %th Course Requests
+    %th Elective Course Requests
+  %tr
+    %td
+      - current_courses.each do |dept, ccourses|
+        %h4= dept
+        %ul
+          - ccourses.each do |course|
+            %li= course.name
+    %td
+  %tr
+    %th Intent to appeal:
+    %th Notes from student:
+  %tr
+    %td
+      - appeal_courses.each do |dept, ccourses|
+        %h4= dept
+        %ol
+          - ccourses.each do |course|
+            %li= course.name
+    %td= user.note_to_registra
+  %tr
+    %th Registrar Notes
+    %td 

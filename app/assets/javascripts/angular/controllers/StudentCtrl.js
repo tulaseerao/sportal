@@ -13,11 +13,16 @@ student.controller('StudentCtrl', [
       $scope.department  = data[0]['name'];
     
     });
-
+    
     $scope.active_class = function(event) {
-      $(event.target).parent().parent().find('li.active').removeClass('active');
-      $(event.target).parent().addClass('active');
+      var current_dept = $(event.target).parent()
+      //location.reload();
+      current_dept.parent().find('li.active').removeClass('active');
+      current_dept.addClass('active');
       $scope.department = $(event.target).text();
+      toggleCourses();
+      var dept_id = angular.element('.ng-scope .active .ng-binding').attr('dept_id');
+      //$http.get('/dept_data?dept_id=' + dept_id);
     }
 
   $http.get('/curr_course_data').success(function(data) {
@@ -30,22 +35,49 @@ student.controller('StudentCtrl', [
     $scope.list5 = data;
   });
 
-  $scope.myCallback = function(event, ui){
-
-    var s = angular.element('.selected_courses .selected_course'); //$('.selected_courses .selected_course');
-    for(var i = 0; i < s.length; i++) { 
-      var obj = s[i]
-      var val = obj.value
-      console.log(obj); 
-      console.log(val); 
-      $http(
+  // $http.get('/dept_grade_courses_data?dept=' + $scope.department).success(function(data) {
+  //     $scope.dept_grade_courses = data;
+  //   });
+  
+//  $http(
+//    {
+//      method: 'GET'
+//      url: '/dept_grade_courses_data'
+//      params: {dept: $scope.department}
+//    }
+//  ).success(function(data) {
+//    $scope.dept_grade_courses = data;
+//  });
+   
+  $scope.myCallback = function(){
+    console.log(this);
+    console.log($(this));
+    console.log($this);
+    console.log($(this.data));
+    console.log($('.selected_courses .selected_course'));
+    console.log($scope.department);
+    $http(
         {
           url: '/store_course',
           method: 'GET',
-          params: {id: val}
+          params: {id: 'id'}
         }
       );
-    }
+    // var s = angular.element('.selected_courses .selected_course'); //$('.selected_courses .selected_course');
+    // for(var i = 0; i < s.length; i++) { 
+    //   var obj = s[i]
+    //   var val = obj.value
+    //   console.log(obj); 
+    //   console.log(val); 
+    //   // console.log($(event.target));
+    //   $http(
+    //     {
+    //       url: '/store_course',
+    //       method: 'GET',
+    //       params: {id: val}
+    //     }
+    //   );
+    // }
     console.log('Dropped into something');
   };
 

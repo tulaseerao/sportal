@@ -73,6 +73,7 @@ class Recommended < ConfigScript
 	  	      :name => line[:"Recommended Course Name (#{i}) - Course Recommendations Cluster"],
 	  	      :code => line[:"Recommended Course ID (#{i}) - Course Recommendations Cluster"],
 	  	      :description => line[:"Recommended Course Name (#{i}) - Course Recommendations Cluster"],
+	  	      :grade_id => Grade.find_or_create_by_name(line[:"Student (Next Year) Next Year Grade"]).id,
 	  	      :department_id => (departments[i].id unless departments[i].blank?)
 	        ) unless line[:"Recommended Course Name (#{i}) - Course Recommendations Cluster"].blank? && line[:"Recommended Course ID (#{i}) - Course Recommendations Cluster"].blank?
 	  	else

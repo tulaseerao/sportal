@@ -1,0 +1,6 @@
+%h2 Courses
+= link_to 'New Course', new_admin_course_path
+%br/
+%br/
+= render :partial => 'list', :locals => {:courses => courses}
+

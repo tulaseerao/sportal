@@ -25,6 +25,8 @@ gem 'haml'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails' 
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
@@ -52,6 +54,8 @@ gem 'uglifier', '>= 1.3.0'
 
 # Use unicorn as the app server
 # gem 'unicorn'
+
+gem 'will_paginate'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
